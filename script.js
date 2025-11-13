@@ -1,4 +1,94 @@
 // ============================================
+// ANIMAÇÃO DO CÍRCULO COM LINHAS RADIANTES
+// ============================================
+const canvas = document.getElementById('circleCanvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let animationFrame;
+    let time = 0;
+
+    // Configurar tamanho do canvas
+    function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Configuração das linhas
+    const numLines = 40; // Número de linhas radiantes
+    const centerX = () => canvas.width / 2;
+    const centerY = () => canvas.height / 2;
+    const maxRadius = () => Math.min(canvas.width, canvas.height) / 2;
+
+    function drawRadiantLines() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const cx = centerX();
+        const cy = centerY();
+        const radius = maxRadius();
+
+        // Incrementar tempo para animação
+        time += 0.02;
+
+        // Desenhar múltiplas linhas radiantes
+        for (let i = 0; i < numLines; i++) {
+            const angle = (Math.PI * 2 * i) / numLines;
+
+            // Calcular pontos da linha
+            const startRadius = 10 + Math.sin(time + i * 0.1) * 5; // Ponto inicial pulsante
+            const endRadius = radius * 0.9;
+
+            const x1 = cx + Math.cos(angle) * startRadius;
+            const y1 = cy + Math.sin(angle) * startRadius;
+            const x2 = cx + Math.cos(angle) * endRadius;
+            const y2 = cy + Math.sin(angle) * endRadius;
+
+            // Criar gradiente de rosa para branco com movimento
+            const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+
+            // Intensidade rosa no centro (variando com o tempo)
+            const pinkIntensity = 0.7 + Math.sin(time * 2 + i * 0.2) * 0.3;
+
+            // Cores do gradiente - rosa intenso no centro para branco/transparente no fim
+            gradient.addColorStop(0, `rgba(240, 169, 239, ${pinkIntensity})`);
+            gradient.addColorStop(0.3, `rgba(185, 91, 183, ${pinkIntensity * 0.8})`);
+            gradient.addColorStop(0.6, `rgba(255, 200, 255, ${pinkIntensity * 0.4})`);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            // Desenhar linha
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 2 + Math.sin(time + i * 0.15) * 1; // Largura variável
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        }
+
+        // Desenhar ponto central brilhante
+        const pulseRadius = 8 + Math.sin(time * 3) * 3;
+        const centerGradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, pulseRadius);
+        centerGradient.addColorStop(0, 'rgba(240, 169, 239, 1)');
+        centerGradient.addColorStop(0.5, 'rgba(185, 91, 183, 0.8)');
+        centerGradient.addColorStop(1, 'rgba(240, 169, 239, 0)');
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, pulseRadius, 0, Math.PI * 2);
+        ctx.fillStyle = centerGradient;
+        ctx.fill();
+
+        // Continuar animação
+        animationFrame = requestAnimationFrame(drawRadiantLines);
+    }
+
+    // Iniciar animação
+    drawRadiantLines();
+}
+
+// ============================================
 // NAVEGAÇÃO MOBILE
 // ============================================
 const burger = document.querySelector('.burger');

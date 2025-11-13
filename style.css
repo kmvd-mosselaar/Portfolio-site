@@ -215,57 +215,12 @@ body {
     letter-spacing: -0.02em;
 }
 
-.glitch {
-    position: relative;
-    display: inline-block;
-    animation: glitchText 5s infinite;
-}
-
-@keyframes glitchText {
-    0%, 90%, 100% { transform: translate(0); }
-    91% { transform: translate(-2px, 2px); }
-    92% { transform: translate(2px, -2px); }
-    93% { transform: translate(-2px, 2px); }
-}
-
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.glitch::before {
-    animation: glitchBefore 3s infinite;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+.hero-name {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-}
-
-.glitch::after {
-    animation: glitchAfter 3s infinite;
-    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-@keyframes glitchBefore {
-    0%, 94%, 100% { transform: translate(0); }
-    95% { transform: translate(-3px, 0); }
-    96% { transform: translate(3px, 0); }
-}
-
-@keyframes glitchAfter {
-    0%, 94%, 100% { transform: translate(0); }
-    95% { transform: translate(3px, 0); }
-    96% { transform: translate(-3px, 0); }
+    animation: fadeInUp 1s ease both;
 }
 
 .subtitle {
@@ -415,6 +370,16 @@ body {
     animation: rotateCircle 20s linear infinite, pulse 4s ease-in-out infinite;
     position: relative;
     box-shadow: var(--shadow-glow);
+    overflow: hidden;
+}
+
+#circleCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
 }
 
 .circle-animation::before,
