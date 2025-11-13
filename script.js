@@ -1,4 +1,94 @@
 // ============================================
+// ANIMAÇÃO DO CÍRCULO COM LINHAS RADIANTES
+// ============================================
+const canvas = document.getElementById('circleCanvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let animationFrame;
+    let time = 0;
+
+    // Configurar tamanho do canvas
+    function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Configuração das linhas
+    const numLines = 100; // Número de linhas radiantes
+    const centerX = () => canvas.width / 2;
+    const centerY = () => canvas.height / 2;
+    const maxRadius = () => Math.min(canvas.width, canvas.height) / 2;
+
+    function drawRadiantLines() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const cx = centerX();
+        const cy = centerY();
+        const radius = maxRadius();
+
+        // Incrementar tempo para animação
+        time += 0.02;
+
+        // Desenhar múltiplas linhas radiantes
+        for (let i = 0; i < numLines; i++) {
+            const angle = (Math.PI * 2 * i) / numLines;
+
+            // Calcular pontos da linha
+            const startRadius = 10 + Math.sin(time + i * 0.1) * 5; // Ponto inicial pulsante
+            const endRadius = radius * 0.9;
+
+            const x1 = cx + Math.cos(angle) * startRadius;
+            const y1 = cy + Math.sin(angle) * startRadius;
+            const x2 = cx + Math.cos(angle) * endRadius;
+            const y2 = cy + Math.sin(angle) * endRadius;
+
+            // Criar gradiente de rosa para branco com movimento
+            const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+
+            // Intensidade rosa no centro (variando com o tempo)
+            const pinkIntensity = 0.7 + Math.sin(time * 2 + i * 0.2) * 0.3;
+
+            // Cores do gradiente - rosa intenso no centro para branco/transparente no fim
+            gradient.addColorStop(0, `rgba(240, 169, 239, ${pinkIntensity})`);
+            gradient.addColorStop(0.3, `rgba(185, 91, 183, ${pinkIntensity * 0.8})`);
+            gradient.addColorStop(0.6, `rgba(255, 200, 255, ${pinkIntensity * 0.4})`);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            // Desenhar linha
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 2 + Math.sin(time + i * 0.15) * 1; // Largura variável
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        }
+
+        // Desenhar ponto central brilhante
+        const pulseRadius = 8 + Math.sin(time * 3) * 3;
+        const centerGradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, pulseRadius);
+        centerGradient.addColorStop(0, 'rgba(240, 169, 239, 1)');
+        centerGradient.addColorStop(0.5, 'rgba(185, 91, 183, 0.8)');
+        centerGradient.addColorStop(1, 'rgba(240, 169, 239, 0)');
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, pulseRadius, 0, Math.PI * 2);
+        ctx.fillStyle = centerGradient;
+        ctx.fill();
+
+        // Continuar animação
+        animationFrame = requestAnimationFrame(drawRadiantLines);
+    }
+
+    // Iniciar animação
+    drawRadiantLines();
+}
+
+// ============================================
 // NAVEGAÇÃO MOBILE
 // ============================================
 const burger = document.querySelector('.burger');
@@ -451,6 +541,123 @@ function createThemeToggle() {
 
 // Criar botão de tema (descomente se quiser usar)
 // createThemeToggle();
+
+// ============================================
+// VANISHING POINT EFFECT
+// ============================================
+function initVanishingPoint() {
+    const canvas = document.getElementById('vanishingPointCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    // Configurar tamanho do canvas
+    function resizeCanvas() {
+        const container = canvas.parentElement;
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Configurações das linhas
+    const numLines = 50; // Número de linhas
+    const lines = [];
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const maxDistance = Math.sqrt(canvas.width ** 2 + canvas.height ** 2);
+
+    // Criar linhas em diferentes ângulos
+    for (let i = 0; i < numLines; i++) {
+        const angle = (Math.PI * 2 * i) / numLines;
+        lines.push({
+            angle: angle,
+            offset: Math.random() * 200, // Offset inicial aleatório para efeito mais dinâmico
+            speed: 0.5 + Math.random() * 0.5 // Velocidade variável
+        });
+    }
+
+    // Função de animação
+    function animate() {
+        // Limpar canvas com fundo escuro
+        ctx.fillStyle = 'rgba(10, 10, 10, 1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Atualizar centro baseado no tamanho atual
+        const currentCenterX = canvas.width / 2;
+        const currentCenterY = canvas.height / 2;
+
+        // Desenhar cada linha
+        lines.forEach(line => {
+            // Calcular ponto final da linha
+            const endX = currentCenterX + Math.cos(line.angle) * maxDistance;
+            const endY = currentCenterY + Math.sin(line.angle) * maxDistance;
+
+            // Criar gradiente de rosa para branco/transparente
+            const gradient = ctx.createLinearGradient(
+                currentCenterX,
+                currentCenterY,
+                endX,
+                endY
+            );
+
+            // Cores do gradiente com animação do offset
+            const offsetNormalized = (line.offset % 200) / 200;
+
+            // Rosa intenso no centro
+            gradient.addColorStop(0, 'rgba(186, 42, 133, 0.8)');
+            gradient.addColorStop(0.1, 'rgba(186, 42, 133, 0.6)');
+
+            // Transição para branco com base no offset
+            gradient.addColorStop(Math.min(0.3 + offsetNormalized * 0.2, 0.5), 'rgba(255, 192, 203, 0.4)');
+            gradient.addColorStop(Math.min(0.5 + offsetNormalized * 0.3, 0.8), 'rgba(255, 255, 255, 0.2)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            // Desenhar linha
+            ctx.beginPath();
+            ctx.moveTo(currentCenterX, currentCenterY);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Atualizar offset para criar animação de expansão
+            line.offset += line.speed;
+            if (line.offset > 200) {
+                line.offset = 0;
+            }
+        });
+
+        // Desenhar ponto rosa no centro
+        const pointGradient = ctx.createRadialGradient(
+            currentCenterX, currentCenterY, 0,
+            currentCenterX, currentCenterY, 15
+        );
+        pointGradient.addColorStop(0, 'rgba(186, 42, 133, 1)');
+        pointGradient.addColorStop(0.5, 'rgba(186, 42, 133, 0.8)');
+        pointGradient.addColorStop(1, 'rgba(186, 42, 133, 0)');
+
+        ctx.beginPath();
+        ctx.arc(currentCenterX, currentCenterY, 15, 0, Math.PI * 2);
+        ctx.fillStyle = pointGradient;
+        ctx.fill();
+
+        // Ponto rosa sólido no centro
+        ctx.beginPath();
+        ctx.arc(currentCenterX, currentCenterY, 5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(186, 42, 133, 1)';
+        ctx.fill();
+
+        requestAnimationFrame(animate);
+    }
+
+    // Iniciar animação
+    animate();
+}
+
+// Inicializar efeito quando a página carregar
+window.addEventListener('load', initVanishingPoint);
 
 // ============================================
 // LOG DE INICIALIZAÇÃO
