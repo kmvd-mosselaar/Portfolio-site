@@ -453,6 +453,123 @@ function createThemeToggle() {
 // createThemeToggle();
 
 // ============================================
+// VANISHING POINT EFFECT
+// ============================================
+function initVanishingPoint() {
+    const canvas = document.getElementById('vanishingPointCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    // Configurar tamanho do canvas
+    function resizeCanvas() {
+        const container = canvas.parentElement;
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Configurações das linhas
+    const numLines = 50; // Número de linhas
+    const lines = [];
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const maxDistance = Math.sqrt(canvas.width ** 2 + canvas.height ** 2);
+
+    // Criar linhas em diferentes ângulos
+    for (let i = 0; i < numLines; i++) {
+        const angle = (Math.PI * 2 * i) / numLines;
+        lines.push({
+            angle: angle,
+            offset: Math.random() * 200, // Offset inicial aleatório para efeito mais dinâmico
+            speed: 0.5 + Math.random() * 0.5 // Velocidade variável
+        });
+    }
+
+    // Função de animação
+    function animate() {
+        // Limpar canvas com fundo escuro
+        ctx.fillStyle = 'rgba(10, 10, 10, 1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Atualizar centro baseado no tamanho atual
+        const currentCenterX = canvas.width / 2;
+        const currentCenterY = canvas.height / 2;
+
+        // Desenhar cada linha
+        lines.forEach(line => {
+            // Calcular ponto final da linha
+            const endX = currentCenterX + Math.cos(line.angle) * maxDistance;
+            const endY = currentCenterY + Math.sin(line.angle) * maxDistance;
+
+            // Criar gradiente de rosa para branco/transparente
+            const gradient = ctx.createLinearGradient(
+                currentCenterX,
+                currentCenterY,
+                endX,
+                endY
+            );
+
+            // Cores do gradiente com animação do offset
+            const offsetNormalized = (line.offset % 200) / 200;
+
+            // Rosa intenso no centro
+            gradient.addColorStop(0, 'rgba(186, 42, 133, 0.8)');
+            gradient.addColorStop(0.1, 'rgba(186, 42, 133, 0.6)');
+
+            // Transição para branco com base no offset
+            gradient.addColorStop(Math.min(0.3 + offsetNormalized * 0.2, 0.5), 'rgba(255, 192, 203, 0.4)');
+            gradient.addColorStop(Math.min(0.5 + offsetNormalized * 0.3, 0.8), 'rgba(255, 255, 255, 0.2)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            // Desenhar linha
+            ctx.beginPath();
+            ctx.moveTo(currentCenterX, currentCenterY);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Atualizar offset para criar animação de expansão
+            line.offset += line.speed;
+            if (line.offset > 200) {
+                line.offset = 0;
+            }
+        });
+
+        // Desenhar ponto rosa no centro
+        const pointGradient = ctx.createRadialGradient(
+            currentCenterX, currentCenterY, 0,
+            currentCenterX, currentCenterY, 15
+        );
+        pointGradient.addColorStop(0, 'rgba(186, 42, 133, 1)');
+        pointGradient.addColorStop(0.5, 'rgba(186, 42, 133, 0.8)');
+        pointGradient.addColorStop(1, 'rgba(186, 42, 133, 0)');
+
+        ctx.beginPath();
+        ctx.arc(currentCenterX, currentCenterY, 15, 0, Math.PI * 2);
+        ctx.fillStyle = pointGradient;
+        ctx.fill();
+
+        // Ponto rosa sólido no centro
+        ctx.beginPath();
+        ctx.arc(currentCenterX, currentCenterY, 5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(186, 42, 133, 1)';
+        ctx.fill();
+
+        requestAnimationFrame(animate);
+    }
+
+    // Iniciar animação
+    animate();
+}
+
+// Inicializar efeito quando a página carregar
+window.addEventListener('load', initVanishingPoint);
+
+// ============================================
 // LOG DE INICIALIZAÇÃO
 // ============================================
 console.log('%c🚀 Portfolio Katherine Mosselaar ', 'background: rgba(255, 0, 251, 0.605); color: #0A0A0A; font-size: 20px; padding: 10px; border-radius: 5px;');

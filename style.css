@@ -608,6 +608,26 @@ body {
 }
 
 /* ============================================
+   VANISHING POINT EFFECT
+   ============================================ */
+.vanishing-point-container {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-darker);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#vanishingPointCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* ============================================
    EXPERIENCE SECTION
    ============================================ */
 .experience {
