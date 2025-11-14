@@ -460,6 +460,7 @@ function initVanishingPoint() {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
+    const profileCircle = document.querySelector('.profile-circle');
 
     // Configurar tamanho do canvas
     function resizeCanvas() {
@@ -471,11 +472,27 @@ function initVanishingPoint() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
+    // Função para obter o centro do círculo
+    function getCircleCenter() {
+        if (!profileCircle) {
+            return {
+                x: canvas.width / 2,
+                y: canvas.height / 2
+            };
+        }
+
+        const rect = profileCircle.getBoundingClientRect();
+        const canvasRect = canvas.getBoundingClientRect();
+
+        return {
+            x: rect.left - canvasRect.left + rect.width / 2,
+            y: rect.top - canvasRect.top + rect.height / 2
+        };
+    }
+
     // Configurações das linhas
-    const numLines = 50; // Número de linhas
+    const numLines = 60; // Número de linhas
     const lines = [];
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
     const maxDistance = Math.sqrt(canvas.width ** 2 + canvas.height ** 2);
 
     // Criar linhas em diferentes ângulos
@@ -483,20 +500,29 @@ function initVanishingPoint() {
         const angle = (Math.PI * 2 * i) / numLines;
         lines.push({
             angle: angle,
-            offset: Math.random() * 200, // Offset inicial aleatório para efeito mais dinâmico
-            speed: 0.5 + Math.random() * 0.5 // Velocidade variável
+            offset: 0, // Começar com offset 0
+            speed: 0.3 + Math.random() * 0.4 // Velocidade variável
         });
     }
 
+    // Tempo de início da animação
+    const startTime = Date.now();
+    const animationDuration = 3000; // 3 segundos para transição de cores
+
     // Função de animação
     function animate() {
-        // Limpar canvas com fundo escuro
-        ctx.fillStyle = 'rgba(10, 10, 10, 1)';
+        // Limpar canvas com fundo transparente/escuro
+        ctx.fillStyle = 'rgba(15, 33, 16, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Atualizar centro baseado no tamanho atual
-        const currentCenterX = canvas.width / 2;
-        const currentCenterY = canvas.height / 2;
+        // Obter centro do círculo
+        const center = getCircleCenter();
+        const currentCenterX = center.x;
+        const currentCenterY = center.y;
+
+        // Calcular progresso da animação de cores (0 a 1)
+        const elapsed = Date.now() - startTime;
+        const colorProgress = Math.min(elapsed / animationDuration, 1);
 
         // Desenhar cada linha
         lines.forEach(line => {
@@ -504,7 +530,7 @@ function initVanishingPoint() {
             const endX = currentCenterX + Math.cos(line.angle) * maxDistance;
             const endY = currentCenterY + Math.sin(line.angle) * maxDistance;
 
-            // Criar gradiente de rosa para branco/transparente
+            // Criar gradiente INVERTIDO: branco no centro, rosa nas pontas
             const gradient = ctx.createLinearGradient(
                 currentCenterX,
                 currentCenterY,
@@ -515,14 +541,27 @@ function initVanishingPoint() {
             // Cores do gradiente com animação do offset
             const offsetNormalized = (line.offset % 200) / 200;
 
-            // Rosa intenso no centro
-            gradient.addColorStop(0, 'rgba(186, 42, 133, 0.8)');
-            gradient.addColorStop(0.1, 'rgba(186, 42, 133, 0.6)');
+            // INVERTIDO: Branco no centro (início da linha)
+            // Transição gradual de branco -> rosa baseada no colorProgress
+            const centerR = 255 - Math.floor((255 - 186) * colorProgress);
+            const centerG = 255 - Math.floor((255 - 42) * colorProgress);
+            const centerB = 255 - Math.floor((255 - 133) * colorProgress);
 
-            // Transição para branco com base no offset
-            gradient.addColorStop(Math.min(0.3 + offsetNormalized * 0.2, 0.5), 'rgba(255, 192, 203, 0.4)');
-            gradient.addColorStop(Math.min(0.5 + offsetNormalized * 0.3, 0.8), 'rgba(255, 255, 255, 0.2)');
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            gradient.addColorStop(0, `rgba(${centerR}, ${centerG}, ${centerB}, 0.9)`);
+            gradient.addColorStop(0.1, `rgba(${centerR}, ${centerG}, ${centerB}, 0.7)`);
+
+            // Transição do meio
+            const midProgress = 0.3 + offsetNormalized * 0.2;
+            const midR = 255 - Math.floor((255 - 220) * colorProgress);
+            const midG = 192 - Math.floor((192 - 100) * colorProgress);
+            const midB = 203 - Math.floor((203 - 180) * colorProgress);
+
+            gradient.addColorStop(Math.min(midProgress, 0.5), `rgba(${midR}, ${midG}, ${midB}, 0.5)`);
+
+            // Rosa nas pontas (fim da linha)
+            const endProgress = 0.6 + offsetNormalized * 0.3;
+            gradient.addColorStop(Math.min(endProgress, 0.85), 'rgba(186, 42, 133, 0.6)');
+            gradient.addColorStop(1, 'rgba(186, 42, 133, 0)');
 
             // Desenhar linha
             ctx.beginPath();
@@ -539,24 +578,28 @@ function initVanishingPoint() {
             }
         });
 
-        // Desenhar ponto rosa no centro
+        // Desenhar ponto central com gradiente que transiciona de branco para rosa
+        const pointR = 255 - Math.floor((255 - 186) * colorProgress);
+        const pointG = 255 - Math.floor((255 - 42) * colorProgress);
+        const pointB = 255 - Math.floor((255 - 133) * colorProgress);
+
         const pointGradient = ctx.createRadialGradient(
             currentCenterX, currentCenterY, 0,
             currentCenterX, currentCenterY, 15
         );
-        pointGradient.addColorStop(0, 'rgba(186, 42, 133, 1)');
-        pointGradient.addColorStop(0.5, 'rgba(186, 42, 133, 0.8)');
-        pointGradient.addColorStop(1, 'rgba(186, 42, 133, 0)');
+        pointGradient.addColorStop(0, `rgba(${pointR}, ${pointG}, ${pointB}, 1)`);
+        pointGradient.addColorStop(0.5, `rgba(${pointR}, ${pointG}, ${pointB}, 0.8)`);
+        pointGradient.addColorStop(1, `rgba(${pointR}, ${pointG}, ${pointB}, 0)`);
 
         ctx.beginPath();
         ctx.arc(currentCenterX, currentCenterY, 15, 0, Math.PI * 2);
         ctx.fillStyle = pointGradient;
         ctx.fill();
 
-        // Ponto rosa sólido no centro
+        // Ponto sólido no centro
         ctx.beginPath();
         ctx.arc(currentCenterX, currentCenterY, 5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(186, 42, 133, 1)';
+        ctx.fillStyle = `rgba(${pointR}, ${pointG}, ${pointB}, 1)`;
         ctx.fill();
 
         requestAnimationFrame(animate);

@@ -500,12 +500,11 @@ body {
     padding: var(--spacing-xl) 0;
     background: var(--gradient-dark);
     position: relative;
-    overflow: hidden; /* Contém o canvas dentro da seção */
 }
 
 .about .container {
     position: relative;
-    z-index: 10; /* Conteúdo acima do canvas */
+    z-index: 10;
 }
 
 .section-title {
@@ -623,7 +622,7 @@ body {
     width: 100%;
     height: 100%;
     display: block;
-    z-index: 1;
+    z-index: 0; /* Atrás do conteúdo da hero */
     pointer-events: none; /* Permite clicar no conteúdo sobre o canvas */
 }
 
