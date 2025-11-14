@@ -500,6 +500,12 @@ body {
     padding: var(--spacing-xl) 0;
     background: var(--gradient-dark);
     position: relative;
+    overflow: hidden; /* Contém o canvas dentro da seção */
+}
+
+.about .container {
+    position: relative;
+    z-index: 10; /* Conteúdo acima do canvas */
 }
 
 .section-title {
@@ -605,6 +611,20 @@ body {
 .education-details p,
 .course-item p {
     color: var(--text-secondary);
+}
+
+/* ============================================
+   VANISHING POINT EFFECT
+   ============================================ */
+#vanishingPointCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 1;
+    pointer-events: none; /* Permite clicar no conteúdo sobre o canvas */
 }
 
 /* ============================================
