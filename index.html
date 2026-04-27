@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katherine Mosselaar - Portfólio</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="logo">
-                <h2>KM</h2>
+                <h2>KVDM</h2>
             </div>
             <ul class="nav-links">
                 <li><a href="#home">Início</a></li>
                 <li><a href="#about">Sobre</a></li>
                 <li><a href="#experience">Experiências</a></li>
+                <li><a href="#projects">Projetos</a></li>
                 <li><a href="#skills">Habilidades</a></li>
                 <li><a href="#contact">Contato</a></li>
             </ul>
@@ -29,358 +35,726 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="glitch" data-text="KATHERINE MOSSELAAR">KATHERINE MOSSELAAR</h1>
-                <p class="subtitle">Estudante de Ciência e Tecnologia | UNIFESP SJC</p>
-                <p class="description">
-                    Desenvolvedora em formação com foco em Front-end, Back-end, 
-                    Inteligência Artificial e Análise de Dados
-                </p>
-                <div class="cta-buttons">
-                    <a href="#contact" class="btn btn-primary">Entre em Contato</a>
-                    <a href="#experience" class="btn btn-secondary">Ver Projetos</a>
-                </div>
-                <div class="social-links">
-                    <a href="https://github.com/kmvdmosselaar" target="_blank" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="mailto:katherine.mosselaar@gmail.com" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="tel:+5511976469482" aria-label="Telefone">
-                        <i class="fas fa-phone"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="profile-circle">
-                    <div class="circle-animation"></div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse"></div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <!-- Vanishing Point Effect -->
-        <canvas id="vanishingPointCanvas"></canvas>
-
-        <div class="container">
-            <h2 class="section-title">Sobre Mim</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Objetivos</h3>
-                    <p>
-                        Estudante de Ciência e Tecnologia na UNIFESP, busco uma oportunidade para 
-                        aplicar e expandir meus conhecimentos na área de Ciências da Computação, desde 
-                        o front-end ao back-end. Com uma abordagem multidisciplinar e forte interesse 
-                        em tecnologia, inteligência artificial e análise de dados, estou sempre em busca 
-                        de aprender e solucionar novos desafios.
+    <!-- Folder Sections Container -->
+    <div class="folders-container">
+        <!-- Hero Section -->
+        <section id="home" class="folder-section" data-folder="inicio">
+            <div class="hero-left">
+                <div class="hero-text">
+                    <h1 class="hero-title">Katherine Mosselaar</h1>
+                    <p class="subtitle">Estudante de Ciência da Computação | UNIFESP SJC</p>
+                    <p class="description">
+                        Desenvolvedora com foco em Ciência de Dados, Back-end e
+                        Inteligência Artificial.
                     </p>
-                    
-                    <div class="education">
-                        <h3>Formação</h3>
-                        <div class="education-item">
-                            <div class="education-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="education-details">
-                                <h4>Universidade Federal de São Paulo</h4>
-                                <p class="period">2022 - Cursando</p>
-                                <p>Ciência e Tecnologia</p>
-                            </div>
-                        </div>
-                        <div class="education-item">
-                            <div class="education-icon">
-                                <i class="fas fa-school"></i>
-                            </div>
-                            <div class="education-details">
-                                <h4>Colégio Albert Sabin - São Paulo</h4>
-                                <p class="period">2009 - 2021</p>
-                            </div>
-                        </div>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Entre em Contato</a>
+                        <a href="#projects" class="btn btn-secondary">Ver Projetos</a>
                     </div>
-
-                    <div class="courses">
-                        <h3>Cursos Complementares</h3>
-                        <div class="course-item">
-                            <i class="fas fa-code"></i>
-                            <div>
-                                <h4>Python do Básico ao Avançado - Udemy</h4>
-                                <p>2023 - 2024 | 20 horas | Programação Orientada a Objetos e Funcional</p>
-                            </div>
-                        </div>
-                        <div class="course-item">
-                            <i class="fas fa-language"></i>
-                            <div>
-                                <h4>The English Academy</h4>
-                                <p>2020 - 2025 | Inglês Avançado</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title">Experiências</h2>
-            <div class="timeline">
-                <div class="timeline-item" data-aos="fade-right">
-                    <div class="timeline-content">
-                        <span class="date">2025</span>
-                        <h3>Iniciação Científica</h3>
-                        <h4>Orientanda da Prof. Lilian Berton - Inteligência Artificial</h4>
-                        <p>
-                            Contribuo na área de Manutenção Prescritiva e Operação Inteligente da 
-                            plataforma IAsmin, com enfoque em resolver problemas de empresas reais 
-                            utilizando inteligência artificial.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">IA</span>
-                            <span class="tag">Pesquisa</span>
-                            <span class="tag">Análise de Dados</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-left">
-                    <div class="timeline-content">
-                        <span class="date">2025</span>
-                        <h3>RESTAURESSE</h3>
-                        <h4>Análise de Dados e Desenvolvimento Web Front-end</h4>
-                        <p>
-                            Startup participante do TecnoPUC RS, desenvolvemos um produto para auxiliar 
-                            negócios na área de Food Service utilizando inteligência artificial.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">Front-end</span>
-                            <span class="tag">IA</span>
-                            <span class="tag">Startup</span>
-                            <span class="tag">Food Service</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-right">
-                    <div class="timeline-content">
-                        <span class="date">2024</span>
-                        <h3>Mulheres nas Exatas</h3>
-                        <h4>Projeto de Extensão UNIFESP SJC</h4>
-                        <p>
-                            Iniciativa voltada a apoiar e incentivar mulheres nas áreas STEM. 
-                            Atualmente colaboro com um projeto de pesquisa utilizando Processamento 
-                            de Linguagem Natural (IA) para análise de dados em mídias sociais.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">NLP</span>
-                            <span class="tag">Python</span>
-                            <span class="tag">Análise de Dados</span>
-                            <span class="tag">STEM</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-left">
-                    <div class="timeline-content">
-                        <span class="date">2022 - 2023</span>
-                        <h3>Enactus UNIFESP</h3>
-                        <h4>Integrante do Marketing</h4>
-                        <p>
-                            Pesquisa, escrita, edição, criação e revisão de conteúdo para redes 
-                            sociais a respeito do projeto de extensão.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">Marketing</span>
-                            <span class="tag">Social Media</span>
-                            <span class="tag">Criação de Conteúdo</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Habilidades Técnicas</h2>
-            <div class="skills-grid">
-                <div class="skill-card" data-aos="fade-up">
-                    <div class="skill-icon">
-                        <i class="fab fa-python"></i>
-                    </div>
-                    <h3>Python</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 90%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="skill-icon">
-                        <i class="fab fa-react"></i>
-                    </div>
-                    <h3>React</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 65%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="skill-icon">
-                        <i class="fab fa-js"></i>
-                    </div>
-                    <h3>JavaScript</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 70%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-aos="fade-up">
-                    <div class="skill-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>MySQL | MariaDB</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 75%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="skill-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>PostgreSQL</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 70%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="skill-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Power BI</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 60%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-aos="fade-up">
-                    <div class="skill-icon">
-                        <i class="fab fa-html5"></i>
-                    </div>
-                    <h3>HTML | CSS</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 85%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="skill-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>C</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 75%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="skill-icon">
-                        <i class="fas fa-language"></i>
-                    </div>
-                    <h3>Inglês Avançado</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 95%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Entre em Contato</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <a href="mailto:katherine.mosselaar@gmail.com">katherine.mosselaar@gmail.com</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Telefone</h3>
-                            <a href="tel:+5511976469482">(11) 97646-9482</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
+                    <div class="social-links">
+                        <a href="https://github.com/kmvd-mosselaar" target="_blank" aria-label="GitHub">
                             <i class="fab fa-github"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>GitHub</h3>
-                            <a href="https://github.com/kmvdmosselaar" target="_blank">github.com/kmvdmosselaar</a>
-                        </div>
+                        </a>
+                        <a href="#" class="copy-link" data-copy="katherine.mosselaar@gmail.com" data-label="Email"
+                            aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="#" class="copy-link" data-copy="+5511976469482" data-label="Telefone"
+                            aria-label="Telefone">
+                            <i class="fas fa-phone"></i>
+                        </a>
                     </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-linkedin"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>LinkedIn</h3>
-                            <a href="https://www.linkedin.com/in/katherine-mosselaar-313331265/" target="_blank">linkedin.com/in/katherine-mosselaar</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Localização</h3>
-                            <p>São José dos Campos, São Paulo - BR</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form-wrapper">
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" placeholder="Seu Nome" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" placeholder="Seu Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" rows="5" placeholder="Sua Mensagem" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
-                    </form>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="hero-right">
+                <canvas id="fluid-canvas"></canvas>
+            </div>
+        </section>
+        <!-- About Folder -->
+        <section id="about" class="folder-section" data-folder="sobre">
+            <div class="folder-tab">
+                <span class="folder-year">sobre mim</span>
+            </div>
+            <div class="folder-content">
+                <div class="container">
+                    <h2 class="section-title">Sobre Mim</h2>
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h3>Objetivos</h3>
+                            <p>
+                                Estudante de Ciência e Tecnologia na UNIFESP, busco uma oportunidade para
+                                aplicar e expandir meus conhecimentos na área de Ciências da Computação, especialmente 
+                                em Ciência de Dados. Com uma abordagem multidisciplinar e forte interesse
+                                em novas tecnologia, inteligência artificial e Neurociência Computacional, estou sempre 
+                                em busca de aprender e solucionar novos desafios.
+                            </p>
+
+                            <div class="education">
+                                <h3>Formação</h3>
+                                <div class="education-item">
+                                    <div class="education-icon">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <div class="education-details">
+                                        <h4>Universidade Federal de São Paulo</h4>
+                                        <p class="period">2022 - Cursando</p>
+                                        <p>Ciência e Tecnologia</p>
+                                    </div>
+                                </div>
+                                <div class="education-item">
+                                    <div class="education-icon">
+                                        <i class="fas fa-school"></i>
+                                    </div>
+                                    <div class="education-details">
+                                        <h4>Colégio Albert Sabin - São Paulo</h4>
+                                        <p class="period">2009 - 2021</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="courses">
+                                <h3>Cursos Complementares</h3>
+                                <div class="course-item">
+                                    <i class="fas fa-code"></i>
+                                    <div>
+                                        <h4>Python do Básico ao Avançado - Udemy</h4>
+                                        <p>2023 - 2024 | 20 horas | Programação Orientada a Objetos e Funcional</p>
+                                    </div>
+                                </div>
+                                <div class="course-item">
+                                    <i class="fas fa-language"></i>
+                                    <div>
+                                        <h4>The English Academy</h4>
+                                        <p>2020 - 2025 | Inglês Avançado</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Folder -->
+        <section id="experience" class="folder-section" data-folder="experiencia">
+            <div class="folder-tab">
+                <span class="folder-year">experiências</span>
+            </div>
+            <div class="folder-content">
+                <div class="container">
+                    <h2 class="section-title">Experiências</h2>
+                    <div class="timeline">
+                        <div class="timeline-item" data-aos="fade-right">
+                            <div class="timeline-content">
+                                <span class="date">2025</span>
+                                <h3>Iniciação Científica</h3>
+                                <h4>Orientanda da Prof. Lilian Berton - Inteligência Artificial</h4>
+                                <p>
+                                    Contribui na área de Manutenção Prescritiva e Operação Inteligente da
+                                    plataforma IAsmin, com enfoque em resolver problemas de empresas reais
+                                    utilizando inteligência artificial.
+                                </p>
+                                <div class="tags">
+                                    <span class="tag">IA</span>
+                                    <span class="tag">Pesquisa</span>
+                                    <span class="tag">Análise de Dados</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item" data-aos="fade-left">
+                            <div class="timeline-content">
+                                <span class="date">2025</span>
+                                <h3>RESTAURESSE</h3>
+                                <h4>Análise e Coleta de Dados, Desenvolvimento Web Front-end</h4>
+                                <p>
+                                    Startup participante do TecnoPUC RS de 2025, desenvolvemos um produto para auxiliar
+                                    negócios na área de Food Service utilizando ferramentas de inteligência artificial do Google.
+                                </p>
+                                <div class="tags">
+                                    <span class="tag">Front-end</span>
+                                    <span class="tag">IA</span>
+                                    <span class="tag">Startup</span>
+                                    <span class="tag">Food Service</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item" data-aos="fade-right">
+                            <div class="timeline-content">
+                                <span class="date">2024</span>
+                                <h3>Mulheres nas Exatas</h3>
+                                <h4>Projeto de Extensão UNIFESP SJC</h4>
+                                <p>
+                                    Iniciativa voltada a apoiar e incentivar mulheres nas áreas STEM, através do
+                                    projeto de extensão Mulheres nas Exatas. Liderei um projeto de pesquisa utilizando 
+                                    Processamento de Linguagem Natural (NLP) para análise de dados em mídias sociais.
+                                </p>
+                                <div class="tags">
+                                    <span class="tag">Extensão</span>
+                                    <span class="tag">PLN</span>
+                                    <span class="tag">Diversidade</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             PROJECTS STACK - PASTAS INTERATIVAS
+             ============================================ -->
+        <section id="projects" class="folder-section" data-folder="projects">
+            <div class="folder-tab">
+                <span class="folder-year">projetos</span>
+            </div>
+            <div class="folder-content">
+
+                <!-- Tab Row -->
+                <div
+                    style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:-2px; position:relative; z-index:10;">
+                    <div class="project-tabs-row" data-project="1">
+                        <span class="project-tab-number">01</span>
+                        <i class="fas fa-file-medical"></i>
+                        <span class="project-tab-name">Receitas Médicas Digitais</span>
+                        <span class="project-tab-badge">Blockchain + NoSQL</span>
+                    </div>
+                    <div class="project-tabs-row" data-project="2">
+                        <span class="project-tab-number">02</span>
+                        <i class="fas fa-brain"></i>
+                        <span class="project-tab-name">Mining Ideologies</span>
+                        <span class="project-tab-badge">NLP + SBERT</span>
+                    </div>
+                    <div class="project-tabs-row" data-project="3">
+                        <span class="project-tab-number">03</span>
+                        <i class="fas fa-industry"></i>
+                        <span class="project-tab-name">IC — Predição Industrial</span>
+                        <span class="project-tab-badge">IA + Petroquímica</span>
+                    </div>
+                    <div class="project-tabs-row" data-project="4">
+                        <span class="project-tab-number">04</span>
+                        <i class="fas fa-truck"></i>
+                        <span class="project-tab-name">Metaheurística para E-commerce</span>
+                        <span class="project-tab-badge">Pesquisa Operacional</span>
+                    </div>
+                </div>
+
+                <!-- ░░ PROJETO 1 — RECEITAS MÉDICAS DIGITAIS ░░ -->
+                <div class="project-folder" data-project="1">
+                    <div class="project-folder-content">
+                        <div class="container">
+                            <div class="project-header">
+                                <span class="project-badge">Projeto Acadêmico — UNIFESP</span>
+                                <h2 class="project-title">Receitas Médicas Digitais</h2>
+                                <p class="project-subtitle">Dois projetos complementares: identidade descentralizada via
+                                    blockchain + gerenciamento de receitas NoSQL</p>
+                            </div>
+
+                            <!-- Infográfico ByteByteGo: Blockchain Flow -->
+                            <div class="infographic">
+                                <div class="infographic-title"><i class="fas fa-link"></i> Fluxo — Identidade
+                                    Descentralizada</div>
+                                <div class="infographic-flow">
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-blue"><i class="fas fa-user-md"></i></div>
+                                        <div class="flow-step-label">Médico</div>
+                                        <div class="flow-step-sub">Emite VC</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-purple"><i class="fas fa-certificate"></i></div>
+                                        <div class="flow-step-label">Traction</div>
+                                        <div class="flow-step-sub">Verifiable Credential</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-teal"><i class="fas fa-wallet"></i></div>
+                                        <div class="flow-step-label">BC Wallet</div>
+                                        <div class="flow-step-sub">Paciente armazena</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-green"><i class="fas fa-file-contract"></i></div>
+                                        <div class="flow-step-label">Smart Contract</div>
+                                        <div class="flow-step-sub">Impede re-uso</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-orange"><i class="fas fa-store"></i></div>
+                                        <div class="flow-step-label">Farmácia</div>
+                                        <div class="flow-step-sub">Verifica &amp; dispensa</div>
+                                    </div>
+                                </div>
+                                <div class="infographic-stats">
+                                    <div class="stat-badge"><strong>Node.js</strong> Webhook</div>
+                                    <div class="stat-badge"><strong>ethers.js</strong> BC integration</div>
+                                    <div class="stat-badge"><strong>Ganache</strong> Testnet local</div>
+                                    <div class="stat-badge">Prescrição <strong>anti-fraude</strong></div>
+                                </div>
+                            </div>
+
+                            <!-- Infográfico ByteByteGo: NoSQL Flow -->
+                            <div class="infographic">
+                                <div class="infographic-title"><i class="fas fa-database"></i> Fluxo — Banco NoSQL de
+                                    Receitas</div>
+                                <div class="infographic-flow">
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-red"><i class="fas fa-database"></i></div>
+                                        <div class="flow-step-label">ArangoDB</div>
+                                        <div class="flow-step-sub">Modelo documental</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-purple"><i class="fas fa-search"></i></div>
+                                        <div class="flow-step-label">AQL Queries</div>
+                                        <div class="flow-step-sub">12 consultas analíticas</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-teal"><i class="fab fa-react"></i></div>
+                                        <div class="flow-step-label">Interface React</div>
+                                        <div class="flow-step-sub">CRUD completo</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-green"><i class="fas fa-exchange-alt"></i></div>
+                                        <div class="flow-step-label">Axios</div>
+                                        <div class="flow-step-sub">API REST</div>
+                                    </div>
+                                </div>
+                                <div class="infographic-stats">
+                                    <div class="stat-badge"><strong>40</strong> registros iniciais</div>
+                                    <div class="stat-badge"><strong>4</strong> entidades (médico, paciente, farmácia,
+                                        receita)</div>
+                                    <div class="stat-badge">Joins, filtros e <strong>agregações</strong></div>
+                                </div>
+                            </div>
+
+                            <div class="project-connection">
+                                <i class="fas fa-arrows-alt-h"></i>
+                                <p>A <strong>Identidade Descentralizada</strong> resolve a emissão e validação segura da
+                                    receita; o <strong>NoSQL</strong> resolve o armazenamento e gestão operacional.
+                                    Juntos formam uma solução completa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /project-folder 1 -->
+
+                <!-- ░░ PROJETO 2 — MINING GENDER IDEOLOGIES ░░ -->
+                <div class="project-folder" data-project="2">
+                    <div class="project-folder-content">
+                        <div class="container">
+                            <div class="project-header">
+                                <span class="project-badge">Pesquisa Científica — UNIFESP × Mulheres nas Exatas</span>
+                                <h2 class="project-title">Mining Gender Ideologies</h2>
+                                <p class="project-subtitle">Análise computacional multilíngue do movimento "tradwife"
+                                    no Instagram usando NLP, SBERT e K-Means</p>
+                            </div>
+
+                            <!-- Infográfico: Pipeline NLP -->
+                            <div class="infographic">
+                                <div class="infographic-title"><i class="fas fa-project-diagram"></i> Pipeline de
+                                    Análise NLP</div>
+                                <div class="infographic-flow">
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-pink"><i class="fab fa-instagram"></i></div>
+                                        <div class="flow-step-label">Instagram</div>
+                                        <div class="flow-step-sub">3.484 posts via Apify</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-orange"><i class="fas fa-language"></i></div>
+                                        <div class="flow-step-label">Langdetect</div>
+                                        <div class="flow-step-sub">EN, PT, DE, ES, FR</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-purple"><i class="fas fa-brain"></i></div>
+                                        <div class="flow-step-label">SBERT</div>
+                                        <div class="flow-step-sub">paraphrase-multilingual-MiniLM</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-blue"><i class="fas fa-object-group"></i></div>
+                                        <div class="flow-step-label">K-Means</div>
+                                        <div class="flow-step-sub">Silhouette Score</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-teal"><i class="fas fa-chart-scatter"></i></div>
+                                        <div class="flow-step-label">PCA</div>
+                                        <div class="flow-step-sub">Visualização 2D</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-green"><i class="fas fa-file-alt"></i></div>
+                                        <div class="flow-step-label">Relatório</div>
+                                        <div class="flow-step-sub">Clusters discursivos</div>
+                                    </div>
+                                </div>
+                                <div class="infographic-stats">
+                                    <div class="stat-badge"><strong>3.484</strong> posts analisados</div>
+                                    <div class="stat-badge"><strong>5</strong> línguas</div>
+                                    <div class="stat-badge">Clusters: <strong>doméstico · religioso · político</strong>
+                                    </div>
+                                    <div class="stat-badge">Embeddings <strong>L2 normalizados</strong></div>
+                                </div>
+                            </div>
+
+                            <div class="project-connection">
+                                <i class="fas fa-lightbulb"></i>
+                                <p>O estudo revelou que, embora o movimento <strong>tradwife</strong> circule
+                                    globalmente, seus significados e implicações ideológicas variam significativamente
+                                    entre contextos linguísticos e culturais — evidenciando a importância da análise
+                                    multilingual.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /project-folder 2 -->
+
+                <!-- ░░ PROJETO 3 — IC LSTM INDUSTRIAL ░░ -->
+                <div class="project-folder" data-project="3">
+                    <div class="project-folder-content">
+                        <div class="container">
+                            <div class="project-header">
+                                <span class="project-badge">Iniciação Científica — UNIFESP × Plataforma IAsmin</span>
+                                <h2 class="project-title">Previsão de Variáveis Industriais com LSTM e Machine Learning</h2>
+                                <p class="project-subtitle">Manutenção prescritiva para indústria petroquímica: previsão
+                                    da abertura de válvula usando redes neurais LSTM, Random Forest e KNN.</p>
+                            </div>
+
+                            <!-- Infográfico: Pipeline ML -->
+                            <div class="infographic">
+                                <div class="infographic-title"><i class="fas fa-robot"></i> Pipeline de Machine Learning
+                                </div>
+                                <div class="infographic-flow">
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-orange"><i class="fas fa-industry"></i></div>
+                                        <div class="flow-step-label">Forno VTI-101</div>
+                                        <div class="flow-step-sub">16.332 leituras</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-olive"><i class="fas fa-filter"></i></div>
+                                        <div class="flow-step-label">Pré-processamento</div>
+                                        <div class="flow-step-sub">MinMaxScaler + janelas</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-blue"><i class="fas fa-sliders-h"></i></div>
+                                        <div class="flow-step-label">Optuna</div>
+                                        <div class="flow-step-sub">30 trials HPO</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-purple"><i class="fas fa-network-wired"></i></div>
+                                        <div class="flow-step-label">LSTM</div>
+                                        <div class="flow-step-sub">112 unidades + Dropout</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-green"><i class="fas fa-tree"></i></div>
+                                        <div class="flow-step-label">Random Forest</div>
+                                        <div class="flow-step-sub">50 iterações</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-teal"><i class="fas fa-bell"></i></div>
+                                        <div class="flow-step-label">Alerta Prescritivo</div>
+                                        <div class="flow-step-sub">Falha detectada</div>
+                                    </div>
+                                </div>
+                                <div class="infographic-stats">
+                                    <div class="stat-badge">AUC-ROC <strong>0.969</strong></div>
+                                    <div class="stat-badge">F1-Score <strong>0.875</strong></div>
+                                    <div class="stat-badge">Recall falhas <strong>82.6%</strong></div>
+                                    <div class="stat-badge">Threshold otimizado <strong>0.45</strong></div>
+                                    <div class="stat-badge">Janela temporal <strong>26–54 dias</strong></div>
+                                    <div class="stat-badge">Stack: <strong>Python · Keras · Scikit-learn</strong></div>
+                                </div>
+                            </div>
+
+                            <div class="project-connection">
+                                <i class="fas fa-wrench"></i>
+                                <p>O modelo LSTM detecta <strong>4 de cada 5 falhas</strong> antes que se tornem
+                                    críticas, permitindo manutenção prescritiva em vez de corretiva — reduzindo paragens
+                                    não programadas na planta petroquímica.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /project-folder 3 -->
+
+                <!-- ░░ PROJETO 4 — ALNS E-COMMERCE ░░ -->
+                <div class="project-folder" data-project="4">
+                    <div class="project-folder-content">
+                        <div class="container">
+                            <div class="project-header">
+                                <span class="project-badge">Pesquisa Operacional — UNIFESP SBPO</span>
+                                <h2 class="project-title">Metaheurística ALNS para Entrega Direta</h2>
+                                <p class="project-subtitle">Otimização logística em e-commerce: múltiplos CDs, frota
+                                    heterogênea, split delivery e transbordo usando ALNS</p>
+                            </div>
+
+                            <!-- Infográfico: Logística Flow -->
+                            <div class="infographic">
+                                <div class="infographic-title"><i class="fas fa-route"></i> Fluxo — Otimização Logística
+                                    ALNS</div>
+                                <div class="infographic-flow">
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-blue"><i class="fas fa-warehouse"></i></div>
+                                        <div class="flow-step-label">CD 1 &amp; 2</div>
+                                        <div class="flow-step-sub">Estoque limitado</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-purple"><i class="fas fa-truck"></i></div>
+                                        <div class="flow-step-label">Frota Heterog.</div>
+                                        <div class="flow-step-sub">Capacidades distintas</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-orange"><i class="fas fa-random"></i></div>
+                                        <div class="flow-step-label">ALNS</div>
+                                        <div class="flow-step-sub">Destroy &amp; Repair</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-teal"><i class="fas fa-cut"></i></div>
+                                        <div class="flow-step-label">Split Delivery</div>
+                                        <div class="flow-step-sub">2 veículos/cliente</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-green"><i class="fas fa-exchange-alt"></i></div>
+                                        <div class="flow-step-label">Transbordo</div>
+                                        <div class="flow-step-sub">Consolidação entre CDs</div>
+                                    </div>
+                                    <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="flow-step">
+                                        <div class="flow-step-icon fs-pink"><i class="fas fa-tag"></i></div>
+                                        <div class="flow-step-label">Custo Mínimo</div>
+                                        <div class="flow-step-sub">Solução heurística</div>
+                                    </div>
+                                </div>
+                                <div class="infographic-stats">
+                                    <div class="stat-badge"><strong>500</strong> clientes simulados</div>
+                                    <div class="stat-badge"><strong>100</strong> produtos</div>
+                                    <div class="stat-badge"><strong>~1M</strong> variáveis no modelo PLIM</div>
+                                    <div class="stat-badge">Benchmark vs. <strong>Gurobi</strong> (exato)</div>
+                                    <div class="stat-badge">Sem split: <strong>30%</strong> demanda não atendida</div>
+                                    <div class="stat-badge">Stack: <strong>Python · OR-Tools</strong></div>
+                                </div>
+                            </div>
+
+                            <div class="project-connection">
+                                <i class="fas fa-balance-scale"></i>
+                                <p>A ALNS encontra soluções de <strong>alta qualidade em tempo hábil</strong>, superando
+                                    as limitações de escalabilidade do solver exato Gurobi — e demonstra que a entrega
+                                    fracionada (split delivery) é crucial para atender 100% da demanda.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /project-folder 4 -->
+
+            </div> <!-- folder-content -->
+        </section>
+
+
+        <section id="skills" class="folder-section" data-folder="habilidades">
+            <div class="folder-tab">
+                <span class="folder-year">habilidades</span>
+            </div>
+            <div class="folder-content">
+                <div class="container">
+                    <h2 class="section-title">Habilidades</h2>
+                    <div class="skills-grid">
+                        <div class="skill-card" data-aos="fade-up">
+                            <div class="skill-icon">
+                                <i class="fab fa-python"></i>
+                            </div>
+                            <h3>Python</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="skill-icon">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <h3>React</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 65%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="skill-icon">
+                                <i class="fab fa-js"></i>
+                            </div>
+                            <h3>JavaScript</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card" data-aos="fade-up">
+                            <div class="skill-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>MySQL | MariaDB</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="skill-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>PostgreSQL</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="skill-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Power BI</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 60%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card" data-aos="fade-up">
+                            <div class="skill-icon">
+                                <i class="fab fa-html5"></i>
+                            </div>
+                            <h3>HTML | CSS</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="skill-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>C</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="skill-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <h3>Inglês Avançado</h3>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Folder -->
+        <section id="contact" class="folder-section" data-folder="contato">
+            <div class="folder-tab">
+                <span class="folder-year">contato</span>
+            </div>
+            <div class="folder-content">
+                <div class="container">
+                    <h2 class="section-title">Entre em Contato</h2>
+                    <div class="contact-content">
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Email</h3>
+                                    <a href="#" class="copy-link" data-copy="katherine.mosselaar@gmail.com"
+                                        data-label="Email">katherine.mosselaar@gmail.com</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Telefone</h3>
+                                    <a href="#" class="copy-link" data-copy="+5511976469482" data-label="Telefone">(11)
+                                        97646-9482</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fab fa-github"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>GitHub</h3>
+                                    <a href="https://github.com/kmvd-mosselaar"
+                                        target="_blank">github.com/kmvd-mosselaar</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fab fa-linkedin"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>LinkedIn</h3>
+                                    <a href="https://www.linkedin.com/in/katherine-mosselaar-313331265/"
+                                        target="_blank">linkedin.com/in/katherine-mosselaar</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Localização</h3>
+                                    <p>São José dos Campos, São Paulo - BR</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-form-wrapper">
+                            <form class="contact-form" id="contactForm"
+                                action="https://formsubmit.co/katherine.mosselaar@gmail.com" method="POST">
+                                <!-- FormSubmit config -->
+                                <input type="hidden" name="_subject" value="Nova mensagem do Portfólio!">
+                                <input type="hidden" name="_captcha" value="false">
+                                <input type="hidden" name="_template" value="table">
+                                <input type="hidden" name="_next"
+                                    value="https://kmvd-mosselaar.github.io/portfolio/obrigada.html">
+                                <div class="form-group">
+                                    <input type="text" id="name" name="name" placeholder="Seu Nome" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" id="email" name="email" placeholder="Seu Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="message" name="message" rows="5" placeholder="Sua Mensagem"
+                                        required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -393,10 +767,15 @@
                 <a href="mailto:katherine.mosselaar@gmail.com" aria-label="Email">
                     <i class="fas fa-envelope"></i>
                 </a>
+                <a href="https://www.linkedin.com/in/katherine-mosselaar-313331265/" target="_blank"
+                    aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
             </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>

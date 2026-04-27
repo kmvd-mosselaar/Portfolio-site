@@ -49,13 +49,6 @@ const navbar = document.querySelector('.navbar');
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
-    // Adicionar sombra ao navbar quando scrollar
-    if (currentScroll > 100) {
-        navbar.style.boxShadow = '0 4px 20px rgba(255, 0, 162, 0.15)';
-    } else {
-        navbar.style.boxShadow = 'none';
-    }
-
     // Esconder/mostrar navbar ao scrollar (opcional)
     // Descomente se quiser esse efeito
     /*
@@ -72,20 +65,11 @@ window.addEventListener('scroll', () => {
 // ============================================
 // SMOOTH SCROLL
 // ============================================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-
-        if (target) {
-            const offsetTop = target.offsetTop - 80;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
+// ============================================
+// SMOOTH SCROLL (REMOVED: Using CSS scroll-behavior)
+// ============================================
+// document.querySelectorAll('a[href^="#"]').forEach(anchor => { ... });
+// Keeping it simple so CSS scroll-margin-top works correctly.
 
 // ============================================
 // ANIMAÇÃO DE TEXTO - TYPEWRITER
@@ -135,37 +119,40 @@ skillBars.forEach(bar => {
 });
 
 // ============================================
-// FORMULÁRIO DE CONTATO
+// CLIPBOARD COPY — EMAIL & TELEFONE
 // ============================================
-const contactForm = document.getElementById('contactForm');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+document.querySelectorAll('.copy-link').forEach(link => {
+    link.addEventListener('click', (e) => {
         e.preventDefault();
+        const textToCopy = link.dataset.copy;
+        const label = link.dataset.label || 'Texto';
 
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-
-        // Validação simples
-        if (name && email && message) {
-            // Criar link mailto
-            const subject = `Contato de ${name}`;
-            const body = `Nome: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMensagem:%0D%0A${message}`;
-            const mailtoLink = `mailto:katherine.mosselaar@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-
-            // Abrir cliente de email
-            window.location.href = mailtoLink;
-
-            // Feedback visual
-            showNotification('Mensagem enviada! Seu cliente de email foi aberto.', 'success');
-
-            // Limpar formulário
-            contactForm.reset();
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showNotification(`✅ ${label} copiado para a área de transferência!`, 'success');
+            }).catch(() => {
+                fallbackCopy(textToCopy, label);
+            });
         } else {
-            showNotification('Por favor, preencha todos os campos.', 'error');
+            fallbackCopy(textToCopy, label);
         }
     });
+});
+
+function fallbackCopy(text, label) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+        document.execCommand('copy');
+        showNotification(`✅ ${label} copiado para a área de transferência!`, 'success');
+    } catch {
+        showNotification(`Copie manualmente: ${text}`, 'error');
+    }
+    document.body.removeChild(ta);
 }
 
 // ============================================
@@ -178,19 +165,24 @@ function showNotification(message, type = 'info') {
     notification.textContent = message;
 
     // Estilos inline
+    const bgColor = type === 'success'
+        ? 'rgba(66,64,50,0.95)'   /* olive dark */
+        : 'rgba(133,39,54,0.95)'; /* antique ruby */
     notification.style.cssText = `
         position: fixed;
         top: 100px;
         right: 20px;
-        background: ${type === 'success' ? 'rgba(255, 0, 251, 0.605)' : 'rgba(255, 0, 162, 0.2)'};
-        color: #0A0A0A;
-        padding: 1rem 2rem;
-        border-radius: 10px;
+        background: ${bgColor};
+        color: #F5EFE6;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
         font-weight: 600;
-        box-shadow: 0 4px 20px rgba(42, 202, 255, 0.491);
+        font-size: 0.9rem;
         z-index: 10000;
         animation: slideInRight 0.5s ease;
-        max-width: 300px;
+        max-width: 320px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+        border-left: 4px solid ${type === 'success' ? '#eecacc' : '#dcb3b5'};
     `;
 
     document.body.appendChild(notification);
@@ -254,13 +246,14 @@ const createCursor = () => {
         position: fixed;
         width: 20px;
         height: 20px;
-        border: 2px solid rgba(255, 0, 251, 0.605);
+        background: rgba(255, 245, 238, 0.8); /* Pearly/Light Pink */
+        box-shadow: 0 0 15px rgba(255, 193, 253, 0.8), 0 0 30px rgba(255, 255, 255, 0.5); /* Glow Effect */
         border-radius: 50%;
         pointer-events: none;
         z-index: 9999;
-        transition: 0.1s;
+        transition: transform 0.1s;
         transform: translate(-50%, -50%);
-        mix-blend-mode: difference;
+        mix-blend-mode: normal; /* Removed difference mode */
     `;
 
     document.body.appendChild(cursor);
@@ -276,12 +269,10 @@ const createCursor = () => {
     interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursor.style.transform = 'translate(-50%, -50%) scale(2)';
-            cursor.style.borderColor = 'rgba(255, 0, 251, 0.605)';
         });
-        
+
         el.addEventListener('mouseleave', () => {
             cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-            cursor.style.borderColor = 'rgba(255, 0, 162, 0.2)';
         });
     });
 };
@@ -301,6 +292,9 @@ window.addEventListener('load', () => {
         document.body.style.transition = 'opacity 0.5s ease';
         document.body.style.opacity = '1';
     }, 100);
+
+    // Mark active nav link after layout is fully computed
+    updateActiveNavLink();
 });
 
 // ============================================
@@ -308,29 +302,36 @@ window.addEventListener('load', () => {
 // ============================================
 const sections = document.querySelectorAll('section[id]');
 
-window.addEventListener('scroll', () => {
+function updateActiveNavLink() {
     const scrollY = window.pageYOffset;
 
-    sections.forEach(section => {
-        const sectionHeight = section.offsetHeight;
-        const sectionTop = section.offsetTop - 100;
-        const sectionId = section.getAttribute('id');
-        const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+    let activeSectionId = null;
 
-        if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            navLinksItems.forEach(link => link.classList.remove('active'));
-            navLink.classList.add('active');
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        const sectionBottom = sectionTop + section.offsetHeight;
+        if (scrollY >= sectionTop && scrollY < sectionBottom) {
+            activeSectionId = section.getAttribute('id');
         }
     });
-});
+
+    // If nothing matched (e.g. at very top), fallback to first section
+    if (!activeSectionId) {
+        activeSectionId = sections[0] ? sections[0].getAttribute('id') : null;
+    }
+
+    navLinksItems.forEach(link => link.classList.remove('active'));
+    if (activeSectionId) {
+        const navLink = document.querySelector(`.nav-links a[href="#${activeSectionId}"]`);
+        if (navLink) navLink.classList.add('active');
+    }
+}
+
+window.addEventListener('scroll', updateActiveNavLink);
 
 // Adicionar estilo para link ativo
 const activeLinkStyle = document.createElement('style');
 activeLinkStyle.textContent = `
-    .nav-links a.active {
-        color: rgba(255, 0, 251, 0.605) !important;
-    }
-
     .nav-links a.active::before {
         width: 100% !important;
     }
@@ -409,169 +410,154 @@ const imageObserver = new IntersectionObserver((entries, observer) => {
 images.forEach(img => imageObserver.observe(img));
 
 // ============================================
-// DARK MODE TOGGLE (Opcional)
+// PASTAS DE PROJETO — ALTERNÂNCIA INTERATIVA (FIXED)
 // ============================================
-// Se quiser adicionar um botão de toggle para diferentes temas
-function createThemeToggle() {
-    const toggle = document.createElement('button');
-    toggle.className = 'theme-toggle';
-    toggle.innerHTML = '<i class="fas fa-moon"></i>';
-    toggle.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: var(--gradient-primary);
-        border: none;
-        color: var(--bg-darker);
-        font-size: 1.5rem;
-        cursor: pointer;
-        box-shadow: var(--shadow-lg);
-        z-index: 1000;
-        transition: all 0.3s ease;
-    `;
+(function () {
+    const folders = document.querySelectorAll('.project-folder');
+    const tabsRow = document.querySelectorAll('.project-tabs-row');   // correct class
 
-    document.body.appendChild(toggle);
+    // Activate a folder by its data-project number
+    function activateProject(projectNum) {
+        // Update folders
+        folders.forEach(f => f.classList.remove('active'));
+        const target = document.querySelector(`.project-folder[data-project="${projectNum}"]`);
+        if (target) target.classList.add('active');
 
-    toggle.addEventListener('click', () => {
-        // Implementar lógica de troca de tema aqui
-        showNotification('Tema alternativo em desenvolvimento!', 'info');
-    });
-
-    toggle.addEventListener('mouseenter', () => {
-        toggle.style.transform = 'scale(1.1) rotate(20deg)';
-    });
-
-    toggle.addEventListener('mouseleave', () => {
-        toggle.style.transform = 'scale(1) rotate(0deg)';
-    });
-}
-
-// Criar botão de tema (descomente se quiser usar)
-// createThemeToggle();
-
-// ============================================
-// VANISHING POINT EFFECT
-// ============================================
-function initVanishingPoint() {
-    const canvas = document.getElementById('vanishingPointCanvas');
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-
-    // Configurar tamanho do canvas
-    function resizeCanvas() {
-        const container = canvas.parentElement;
-        canvas.width = container.offsetWidth;
-        canvas.height = container.offsetHeight;
+        // Update tab highlight
+        tabsRow.forEach(t => t.classList.remove('active'));
+        const activeTab = document.querySelector(`.project-tabs-row[data-project="${projectNum}"]`);
+        if (activeTab) activeTab.classList.add('active');
     }
 
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    // Wire up each row-tab
+    tabsRow.forEach(tab => {
+        tab.setAttribute('tabindex', '0');   // keyboard-accessible
+        tab.setAttribute('role', 'tab');
 
-    // Configurações das linhas
-    const numLines = 50; // Número de linhas
-    const lines = [];
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const maxDistance = Math.sqrt(canvas.width ** 2 + canvas.height ** 2);
-
-    // Criar linhas em diferentes ângulos
-    for (let i = 0; i < numLines; i++) {
-        const angle = (Math.PI * 2 * i) / numLines;
-        lines.push({
-            angle: angle,
-            offset: Math.random() * 200, // Offset inicial aleatório para efeito mais dinâmico
-            speed: 0.5 + Math.random() * 0.5 // Velocidade variável
+        tab.addEventListener('click', () => {
+            activateProject(tab.dataset.project);
         });
-    }
 
-    // Função de animação
-    function animate() {
-        // Limpar canvas com fundo escuro
-        ctx.fillStyle = 'rgba(10, 10, 10, 1)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Atualizar centro baseado no tamanho atual
-        const currentCenterX = canvas.width / 2;
-        const currentCenterY = canvas.height / 2;
-
-        // Desenhar cada linha
-        lines.forEach(line => {
-            // Calcular ponto final da linha
-            const endX = currentCenterX + Math.cos(line.angle) * maxDistance;
-            const endY = currentCenterY + Math.sin(line.angle) * maxDistance;
-
-            // Criar gradiente de rosa para branco/transparente
-            const gradient = ctx.createLinearGradient(
-                currentCenterX,
-                currentCenterY,
-                endX,
-                endY
-            );
-
-            // Cores do gradiente com animação do offset
-            const offsetNormalized = (line.offset % 200) / 200;
-
-            // Rosa intenso no centro
-            gradient.addColorStop(0, 'rgba(186, 42, 133, 0.8)');
-            gradient.addColorStop(0.1, 'rgba(186, 42, 133, 0.6)');
-
-            // Transição para branco com base no offset
-            gradient.addColorStop(Math.min(0.3 + offsetNormalized * 0.2, 0.5), 'rgba(255, 192, 203, 0.4)');
-            gradient.addColorStop(Math.min(0.5 + offsetNormalized * 0.3, 0.8), 'rgba(255, 255, 255, 0.2)');
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-            // Desenhar linha
-            ctx.beginPath();
-            ctx.moveTo(currentCenterX, currentCenterY);
-            ctx.lineTo(endX, endY);
-            ctx.strokeStyle = gradient;
-            ctx.lineWidth = 2;
-            ctx.stroke();
-
-            // Atualizar offset para criar animação de expansão
-            line.offset += line.speed;
-            if (line.offset > 200) {
-                line.offset = 0;
+        tab.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                activateProject(tab.dataset.project);
             }
         });
+    });
 
-        // Desenhar ponto rosa no centro
-        const pointGradient = ctx.createRadialGradient(
-            currentCenterX, currentCenterY, 0,
-            currentCenterX, currentCenterY, 15
-        );
-        pointGradient.addColorStop(0, 'rgba(186, 42, 133, 1)');
-        pointGradient.addColorStop(0.5, 'rgba(186, 42, 133, 0.8)');
-        pointGradient.addColorStop(1, 'rgba(186, 42, 133, 0)');
+    // Show project 1 by default
+    activateProject('1');
+})();
 
-        ctx.beginPath();
-        ctx.arc(currentCenterX, currentCenterY, 15, 0, Math.PI * 2);
-        ctx.fillStyle = pointGradient;
-        ctx.fill();
+// ============================================
+// INFINITE NESTED ELLIPSE ANIMATION (COLOR SWAP)
+// ============================================
+const canvas = document.getElementById('fluid-canvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width, height;
 
-        // Ponto rosa sólido no centro
-        ctx.beginPath();
-        ctx.arc(currentCenterX, currentCenterY, 5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(186, 42, 133, 1)';
-        ctx.fill();
+    // Configurações
+    const config = {
+        barCount: 12,
+        color1: '#424032',   // Olive Dark (Background)
+        color2: '#eecacc',   // Pink Lace (Logo Color)
+        speed: 2.5,          // Growth Speed
+        spawnThreshold: 200  // Create new ellipse when previous radius > this
+    };
 
-        requestAnimationFrame(animate);
+    //Array to store active ellipses (radius and pattern type)
+    let ellipses = [{ r: 0, type: 0 }]; // Start with type 0
+    let typeCounter = 1; // Next type will be 1
+
+    function resize() {
+        width = canvas.width = canvas.parentElement.clientWidth;
+        height = canvas.height = canvas.parentElement.clientHeight;
     }
 
-    // Iniciar animação
-    animate();
+    // Helper: Desenha fundo e barras com cores especificadas
+    function drawPattern(bgColor, barColor) {
+        // Fill Background
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, width, height);
+
+        // Draw Bars
+        const barWidth = width / config.barCount;
+        ctx.fillStyle = barColor; // Bar Color
+
+        for (let i = 0; i < config.barCount; i++) {
+            if (i % 2 === 0) {
+                ctx.fillRect(i * barWidth, 0, barWidth, height);
+            }
+        }
+    }
+
+    function draw() {
+        // Update Ellipses
+        for (let i = 0; i < ellipses.length; i++) {
+            ellipses[i].r += config.speed;
+        }
+
+        // Spawn new ellipse if the smallest one is big enough
+        const lastEllipse = ellipses[ellipses.length - 1];
+        if (lastEllipse.r > config.spawnThreshold) {
+            ellipses.push({ r: 0, type: typeCounter % 2 });
+            typeCounter++;
+        }
+
+        // Remove ellipses that are too huge
+        const maxDiag = Math.sqrt(width * width + height * height);
+        if (ellipses[0].r > maxDiag * 1.5) {
+            ellipses.shift();
+        }
+
+        // DRAWING ============================
+
+        // 1. Draw Base Layer (Pattern A initially / Default)
+        // Actually, the base layer should be "what's underneath the largest ellipse?"
+        // If the largest ellipse is Type 1, it sits on top of Type 0 (the universe).
+        // If the largest ellipse is Type 0, it sits on top of Type 1.
+        // Wait, simpler: Always draw Pattern A as base.
+        // Then stack ellipses.
+        // If ellipses[0] is Type 1, it will draw Pattern B. Correct.
+        // If ellipses[0] is Type 0, it will draw Pattern A. (Redundant but correct - Pattern A on Pattern A).
+        // Optimization: We could skip drawing Pattern A on Pattern A, but clip is cheap enough.
+
+        drawPattern(config.color1, config.color2); // Base: Pattern A (Olive BG)
+
+        // 2. Draw Nested Ellipses
+        for (let i = 0; i < ellipses.length; i++) {
+            const e = ellipses[i];
+
+            ctx.save();
+
+            ctx.beginPath();
+            ctx.ellipse(0, height / 2, e.r, e.r, 0, 0, Math.PI * 2);
+            ctx.clip();
+
+            // Determine Pattern based on persistent type
+            // Type 0: Pattern A (Olive BG)
+            // Type 1: Pattern B (Pink BG)
+
+            if (e.type === 1) {
+                // Inverted: Pink BG, Olive Bars
+                drawPattern(config.color2, config.color1);
+            } else {
+                // Normal: Olive BG, Pink Bars
+                drawPattern(config.color1, config.color2);
+            }
+
+            ctx.restore();
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => {
+        resize();
+    });
+
+    resize();
+    draw();
 }
-
-// Inicializar efeito quando a página carregar
-window.addEventListener('load', initVanishingPoint);
-
-// ============================================
-// LOG DE INICIALIZAÇÃO
-// ============================================
-console.log('%c🚀 Portfolio Katherine Mosselaar ', 'background: rgba(255, 0, 251, 0.605); color: #0A0A0A; font-size: 20px; padding: 10px; border-radius: 5px;');
-console.log('%cDesenvolvido com 💛 e muito ☕', 'color: rgba(255, 0, 251, 0.605); font-size: 14px;');
-console.log('%cInspired by BlackLab Design', 'color: rgba(255, 0, 162, 0.2); font-size: 12px;');
